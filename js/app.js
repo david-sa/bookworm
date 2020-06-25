@@ -35,8 +35,7 @@ const exercises = [
         syllables: [ 'die', 'Katze', 'hat', 'Hunger'],
         image: 'hungry-cat.gif',
         sound: 'die-katze-hat-hunger'
-    }
-/*    , {
+    }, {
         type: 'pictures',
         text: 'Katze',
         images: [
@@ -46,7 +45,6 @@ const exercises = [
             { name: 'Löwe', src: 'lion.jpg'}
         ] 
     }
-    */
 ];
 const snd = new Audio();
 
@@ -59,18 +57,11 @@ function loadExercise() {
 
     $('#workarea').removeClass();
     $('#workarea').addClass(exercise.type);
-    $('<button />', {
-        'id': 'speaker',
-        'type': 'button',
-        'class': 'btn btn-outline-secondary',
-        'text': '🔊',
-    }).appendTo('#workarea');
 
     if (exercise.type == 'pictures') {
-        $('#exercise .container').text(exercise.text);
-        $('#exercise .container img').hide();
-        $('#speaker').hide();
-        
+        $('#exercise .container p').text(exercise.text);
+        $('#exercise .container p').show();
+
         exercise.images = shuffle(exercise.images);
         $.each(exercise.images, function(index, value) {
             let $imageContainer = $('<div />').appendTo('#workarea');
@@ -83,21 +74,22 @@ function loadExercise() {
         $('#workarea').on('click', 'div', function(){
             $('#workarea div').removeClass('selected');
             $(this).addClass('selected');
+            $('#user-answer').text($('img', this).data('name'));
         });
     } else {
-        $('<p />', {
-            'id': 'user-answer',
-        }).appendTo('#workarea');
+        $('<button />', {
+            'id': 'speaker',
+            'type': 'button',
+            'class': 'btn btn-outline-secondary',
+            'text': '🔊',
+        }).appendTo('#exercise');
         $('<p />', {
             'id': 'available-syllables',
         }).appendTo('#workarea');
 
         $('#exercise .container img').show();
         $('#exercise .container img').attr('src', 'img/' + exercise.image);
-        $('#speaker').show();
-
-        $('#user-answer').empty();
-        $('#available-syllables').empty();
+        $('#user-answer').show();
 
         exercise.syllables = shuffle(exercise.syllables);
         $.each(exercise.syllables, function(index, value) {
@@ -135,7 +127,6 @@ function loadExercise() {
             $('#speaker').blur();
         });
     });
-
 }
 
 function shuffle(array) {
@@ -164,7 +155,6 @@ function playSound(fileName) {
     return snd;
 }
 
-
 function moveSyllable($syllable, destination) {
     $('#user-answer button').removeClass('btn-danger');
     $syllable.toggleClass('btn-info');
@@ -177,31 +167,56 @@ $('#main-action').click(function() {
 });
 
 function checkAnswer() {
-    var userAnswer = $('#user-answer button').map((i, el) => el.innerText).get().join('');
+    let userAnswer;
+    if ( $('#user-answer button').length > 0 ) {
+        userAnswer = $('#user-answer button').map((i, el) => el.innerText).get().join('');
+    } else {
+        userAnswer = $('#user-answer').text();
+    }
 
     if (userAnswer.replace('\xa0', ' ') == exercise.text) {
-        $('#overlay').animate({
-            opacity: 'toggle',
-            top: 0
-          }, 1000);
-        playSound('yay');
+        correctAnswer();
+    } else {
+        wrongAnswer();
+    }
+}
+
+function correctAnswer() {
+    $('#overlay').animate({
+        opacity: 'toggle',
+        top: 0
+      }, 1000);
+    playSound('yay');
+    $('#main-action').text('➜').removeClass('btn-info').addClass('btn-success');
+    $('#main-action').data('action', 'nextExercise');
+    if (exercise.type == 'pictures') {
+        $('#workarea div.selected').removeClass('selected').addClass('correct');
+    } else {
         $('#user-answer').css('background-color', 'transparent');
         $('#user-answer button').css('border-radius', 0);
         $('#user-answer button').removeClass('btn-info').addClass('btn-success');
-        $('#main-action').text('➜').removeClass('btn-info').addClass('btn-success');
-        $('#main-action').data('action', 'nextExercise');
+    } 
+}
+
+function wrongAnswer() {
+    playSound('uh-oh');
+    if (exercise.type == 'pictures') {
+        $('#workarea div.selected').removeClass('selected').addClass('wrong');
     } else {
-        $('#user-answer button').addClass('btn-danger');
-        playSound('uh-oh');
-    }
+    } 
 }
 
 function reset() {
     $('#overlay').hide();
     $('#overlay').css('top', '-100%');
     $('#speaker').remove(); // .remove() includes .off();
+    $('#workarea div').remove();
     $('#available-syllables').remove();
-    $('#user-answer').remove();
+    $('#user-answer').empty();
+    $('#user-answer').hide();
+    $('#user-answer').off();
+    $('#user-answer').css('background-color', '#ccc');
+    $('#exercise .container img').hide();
 }
 
 function nextExercise() {
