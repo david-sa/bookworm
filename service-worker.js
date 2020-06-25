@@ -12,7 +12,7 @@ const precacheResources = [
   'img/rabbit.jpg',
   'img/success.gif',
   'js/app.js',
-  'js/bootstrap.min.app',
+  'js/bootstrap.min.js',
   'js/jquery.js',
   'snd/a.mp3',
   'snd/das-paket.mp3',
