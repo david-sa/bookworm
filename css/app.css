@@ -1,0 +1,102 @@
+/* short-stack-regular - latin */
+@font-face {
+    font-family: ShortStack;
+    font-style: normal;
+    font-weight: 400;
+    src: local('Short Stack'), local('ShortStack'),
+         url('../fonts/short-stack-v9-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('../fonts/short-stack-v9-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+html {
+    font-size: 24px;
+    /* border: 1px solid black; */
+}
+
+body {
+    font-family: ShortStack, Sans-Serif;
+}
+
+header {
+    text-align: center;
+}
+
+header span {
+    color: #28a745;
+}
+
+section {
+    text-align: center;
+    margin: 2rem;
+}
+
+#exercise {
+    font-size: 2rem;
+}
+
+#exercise img {
+    height: 250px;
+}
+
+#speaker, #main-action {
+    font-size: 2rem;
+    margin: 1rem;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+}
+
+#available-syllables button {
+    margin-right: 0.25rem;
+}
+
+#user-answer {
+    background-color: #ccc;
+    min-height: calc(3rem + 2px);
+    margin-bottom: 2rem;
+}
+
+#user-answer button {
+    padding: 0;
+    min-width: 1rem;
+    font-size: 2rem;
+}
+
+#workarea div {
+    display: inline-flex;
+    vertical-align: middle;
+    height: 200px;
+    width: 200px;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 3px solid transparent;
+}
+#workarea div.selected {
+    border-color: #28a745;
+}
+#workarea img {
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+}
+
+#overlay {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: -100%;
+    background-image: url("../img/success.gif");
+    background-size: contain;
+}
+
+#result {
+    position: relative;
+    z-index: 2;
+}
+
+.words #user-answer button {
+    margin-right: 0.5rem;
+}
