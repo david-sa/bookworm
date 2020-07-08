@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <title>das Bücherwürmchen</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="manifest.json">
+        <meta name="application-name" content="das Bücherwürmchen">
+        <meta name="apple-mobile-web-app-title" content="das Bücherwürmchen">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="mask-icon" href="safari-pinned-tab.svg" color="#28a745">
+
+        <meta name="theme-color" content="#28a745">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="msapplication-TileColor" content="#28a745">
+        <meta name="msapplication-navbutton-color" content="#28a745">
+        <meta name="msapplication-starturl" content="index.html">
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/intro.css">
+    </head>
+   <body>
+        <div id="dimensions" style="position: absolute; top: 0; left: 0"></div>
+        <div id="animation">
+            <img src="https://via.placeholder.com/1920x1080.png/0000FF" style="position: absolute; top: 0; left: 0">
+            <img src="https://via.placeholder.com/1920x1056.png/00FF00" style="position: absolute; top: 0; left: 0">
+            <img src="https://via.placeholder.com/960x528.png/FF0000" style="position: absolute; top: 0; left: 0">
+        </div>
+        <section id="skip">
+            <button id="main-action" type="button" class="btn btn-info" data-action="check-answer">SKIP INTRO</button>
+        </section>
+
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/intro.js"></script>
+        <script>
+            window.onresize = displayWindowSize;
+            window.onload = displayWindowSize;
+        
+            function displayWindowSize() {
+                myWidth = window.innerWidth;
+                myHeight = window.innerHeight;
+                // your size calculation code here
+                document.getElementById("dimensions").innerHTML = myWidth + "x" + myHeight;
+            };
+        </script>
+    </body>
+</html>
