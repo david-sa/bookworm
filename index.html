@@ -25,6 +25,7 @@
         <link rel="stylesheet" type="text/css" href="css/app.css">
     </head>
    <body>
+        <div id="dimensions" style="position: absolute; top: 0; left: 0"></div>
         <div id="overlay"></div>
         <section id="exercise">
             <div class=container>
@@ -57,5 +58,16 @@
                 console.log('😥 Service worker not supported');
             }
         </script>
+        <script>
+          window.onresize = displayWindowSize;
+          window.onload = displayWindowSize;
+      
+          function displayWindowSize() {
+              myWidth = window.innerWidth;
+              myHeight = window.innerHeight;
+              // your size calculation code here
+              document.getElementById("dimensions").innerHTML = myWidth + "x" + myHeight;
+          };
+      </script>
     </body>
 </html>
